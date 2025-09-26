@@ -1,7 +1,17 @@
-import { useState } from "react";
-import Tooltip from "@mui/material/Tooltip";
+import React, { useState, useContext } from "react";
+
+import GeneralContext from "./GeneralContext";
+
+import { Tooltip, Grow } from "@mui/material";
+
+import {
+  BarChartOutlined,
+  KeyboardArrowDown,
+  KeyboardArrowUp,
+  MoreHoriz,
+} from "@mui/icons-material";
+
 import { watchlist } from "../data/data";
-import { BarChartOutlined, KeyboardArrowDown, KeyboardArrowUp, MoreHoriz } from "@mui/icons-material";
 
 const WatchList = () => {
   return (
@@ -18,9 +28,9 @@ const WatchList = () => {
       </div>
 
       <ul className="list">
-        {watchlist.map((stock, index) => (
-          <WatchListItem stock={stock} key={index} />
-        ))}
+        {watchlist.map((stock, index) => {
+          return <WatchListItem stock={stock} key={index} />;
+        })}
       </ul>
     </div>
   );
@@ -31,11 +41,11 @@ export default WatchList;
 const WatchListItem = ({ stock }) => {
   const [showWatchlistActions, setShowWatchlistActions] = useState(false);
 
-  const handleMouseEnter = () => {
+  const handleMouseEnter = (e) => {
     setShowWatchlistActions(true);
   };
 
-  const handleMouseLeave = () => {
+  const handleMouseLeave = (e) => {
     setShowWatchlistActions(false);
   };
 
@@ -48,38 +58,61 @@ const WatchListItem = ({ stock }) => {
           {stock.isDown ? (
             <KeyboardArrowDown className="down" />
           ) : (
-            <KeyboardArrowUp className="up" />
+            <KeyboardArrowUp className="down" />
           )}
           <span className="price">{stock.price}</span>
         </div>
       </div>
-
-      {showWatchlistActions && <WatchListActions id={stock.name} />}
+      {showWatchlistActions && <WatchListActions uid={stock.name} />}
     </li>
   );
 };
 
-const WatchListActions = ({ id }) => {
+const WatchListActions = ({ uid }) => {
+  const generalContext = useContext(GeneralContext);
+
+  const handleBuyClick = () => {
+    generalContext.openBuyWindow(uid);
+  };
+
+  const handleSellClick = () => {
+    generalContext.openSellWindow(uid); 
+  };
+
   return (
-    <span className="actions">
+    <span className="actions ">
       <span className="watchlist-tooltip">
-        <Tooltip title="Buy (B)" placement="top" arrow>
-        <button className="buy">Buy</button>
+        <Tooltip
+          title="Buy (B)"
+          placement="top"
+          arrow
+          onClick={handleBuyClick}
+        >
+          <button className="buy">Buy</button>
         </Tooltip>
-
-        <Tooltip title="Sell (S)" placement="top" arrow>
-        <button className="sell">Sell</button>
+        <Tooltip
+          title="Sell (S)"
+          placement="top"
+          arrow
+          onClick={handleSellClick}
+        >
+          <button className="sell">Sell</button>
         </Tooltip>
-
-        <Tooltip title="Analytics (A)" placement="top" arrow>
-        <button className="action"><BarChartOutlined /></button>
+        <Tooltip
+          title="Analytics (A)"
+          placement="top"
+          arrow
+        >
+          <button className="action">
+            <BarChartOutlined className="icon" />
+          </button>
         </Tooltip>
-
-        <Tooltip title="More" placement="top" arrow>
-        <button className="action"><MoreHoriz/></button>
+        <Tooltip title="More" placement="top" arrow TransitionComponent={Grow}>
+          <button className="action">
+            <MoreHoriz className="icon" />
+          </button>
         </Tooltip>
       </span>
-      
     </span>
   );
 };
