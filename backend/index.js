@@ -1,99 +1,99 @@
 require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
+const session = require("express-session");
 const cors = require("cors");
-const Holding = require("./model/Holdings");
-const Position = require("./model/Positions");
-const Order = require("./model/Orders.js");
-const { holdings, positions } = require("../dashboard/src/data/data.js");
+const cookieParser = require("cookie-parser");
+const bcrypt = require("bcrypt");
+const Holding = require("./models/Holdings");
+const Position = require("./models/Positions");
+const Order = require("./models/Orders");
+const bodyParser = require("body-parser");
+const {userModel} = require("./models/User");
+const authRouter = require("./routes/authRouter.js");
+const authMiddleware = require("./middlewares/authMiddleware.js");
 const PORT = process.env.PORT || 8080;
+const MONGO_URL = process.env.MONGO_URL;
+const SESSION_SECRET = process.env.SESSION_SECRET || "mysecret";
 
 const app = express();
-app.use(cors());
+
+// ===== MIDDLEWARE =====
 app.use(bodyParser.json());
-app.use(express.urlencoded({extended:true}));
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
+app.use(cors({
+  origin: ["http://localhost:5173", "http://localhost:5174"],
+  credentials: true
+}));
 
-//MongoDB setup
-const URL = process.env.MONGO_URL;
 
-main()
-  .then(() => {
-    console.log("Database connection successful...");
-  })
-  .catch((err) => {
-    console.log(err);
-  });
-async function main() {
-  mongoose.connect(URL);
-}
-
-//adding holdings for temporary data
-
-// app.get("/addholdings", async (req, res) => {
-//   await Holding.deleteMany({});
-//   holdings.forEach((item) => {
-//     let newHolding = new Holding({
-//         name: item.name,
-//         qty: item.qty,
-//         avg: item.avg,
-//         price: item.price,
-//         net: item.day,
-//         day: item.day,
-//     });
-//     newHolding.save();
-//   });
-//   res.send("Holdings added");
-// });
+// ===== DATABASE =====
+mongoose
+  .connect(MONGO_URL)
+  .then(() => console.log("MongoDB connected"))
+  .catch((err) => console.log("MongoDB connection error:", err));
 
 
 
-
-// //Adding positions for temporary data
-// app.get("/addpositions", async (req, res) => {
-//   await Position.deleteMany({});
-//   positions.forEach((item) => {
-//     let newPosition = new Position({
-//       product: item.product,
-//       name: item.name,
-//       qty: item.qty,
-//       avg: item.avg,
-//       price: item.price,
-//       net: item.net,
-//       day: item.day,
-//       isLoss: item.isLoss,
-//     });
-//     newPosition.save();
-//   });
-//   res.send("Positions added");
-// });
-
-
-app.get("/allholdings",async(req,res) => {
-    let allHoldings = await Holding.find({});
-    res.json(allHoldings);
-});
-app.get("/allpositions",async(req,res) => {
-    let allPositions = await Position.find({});
-    res.json(allPositions);
+app.use("/auth",authRouter);
+// Protected holdings
+app.get("/allholdings", authMiddleware, async (req, res) => {
+  const allHoldings = await Holding.find({});
+  res.status(200).json({message:"Holdings fetched Succesfully",success:true,allHoldings});
 });
 
-app.post("/newOrder",async(req,res) => {
-  let newOrder = new Order({
-    name: req.body.name,
-    qty : req.body.qty,
-    price: req.body.price,
-    mode: req.body.mode,
-  });
-  
+// Protected positions
+app.get("/allpositions", authMiddleware,async (req, res) => {
+  const allPositions = await Position.find({});
+  res.status(200).json({message:"Positions fetched Succesfully",success:true, allPositions});
+});
+
+// Place new order
+app.post("/newOrder", async (req, res) => {
+  const { name, qty, price, mode } = req.body;
+
+  const newOrder = new Order({ name, qty, price, mode });
+  if (mode === "BUY") {
+    const newHolding = new Holding({
+      name,
+      qty,
+      avg: price,
+      price,
+      net: "20.22",
+      day: "+2.99%",
+    });
+    await newHolding.save();
+  }
+
   await newOrder.save();
-  res.send("Order Placed!")
-})
-
-app.get("/",(req,res)=> {
-  res.send("Server Working");
-})
-
-app.listen(PORT, () => {
-  console.log("App Started");
+  res.json({ message: "Order placed!" });
 });
+
+// Default route
+app.get("/", (req, res) => res.send("Server Working"));
+
+
+//Logout Route
+app.get("/logout",(req,res) => {
+  try {
+    if(req.cookies.token) {
+      res.clearCookie("token");
+      res.status(200).json({message:"Logout Successful",success:true})
+    }
+  }catch(err) {
+    res.status(500).json({message:"Some error occured, Please try again later",success:false});
+  }
+
+//Private Routing
+app.get("/verify",(req,res) => {
+  if(req.cookies.token) {
+    res.status(200).json({message:"Token is Valid",success:true})
+  } else {
+    res.status(401).json({ message: "Unauthorized Access", success: false });
+  }
+})
+  
+})
+// ===== START SERVER =====
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

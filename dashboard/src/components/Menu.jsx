@@ -22,7 +22,7 @@ const Menu = () => {
         <ul>
           <li>
             <Link className="menu-link"
-            to={"/"}
+            to={"/dashboard"}
             onClick={() => handleMenuClick(0)}>
               <p className={selectedMenu===0 ? activeMenuClass: menuClass}>Dashboard</p>
             </Link>
@@ -50,6 +50,11 @@ const Menu = () => {
           <li>
             <Link className="menu-link" onClick={() => handleMenuClick(5)}>
               <p className={selectedMenu===5 ? activeMenuClass: menuClass}>Apps</p>
+            </Link>
+          </li>
+          <li>
+            <Link className="menu-link" onClick={() => handleMenuClick(6)} to={"/logout"}>
+              <p className={selectedMenu===6 ? activeMenuClass: menuClass}>Logout</p>
             </Link>
           </li>
         </ul>
