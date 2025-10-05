@@ -9,7 +9,6 @@ const Holding = require("./models/Holdings");
 const Position = require("./models/Positions");
 const Order = require("./models/Orders");
 const bodyParser = require("body-parser");
-const {userModel} = require("./models/User");
 const authRouter = require("./routes/authRouter.js");
 const authMiddleware = require("./middlewares/authMiddleware.js");
 const PORT = process.env.PORT || 8080;

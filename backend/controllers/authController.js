@@ -53,7 +53,7 @@ module.exports.loginController = async (req, res) => {
 
     res.cookie("token", jwtToken, {
       httpOnly: true, // JS can't access it → safer than localStorage
-      secure: false, // true if using https
+      secure: true, // true if using https
       sameSite: "Lax", // allow cross-origin
       maxAge:  7 * 24 * 60 * 60 * 1000// 7 day
     });
