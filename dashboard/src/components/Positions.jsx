@@ -8,7 +8,7 @@ const Positions = () => {
   useEffect(() => {
     async function fetchData() {
       try {
-        let response = await axios.get("http://localhost:8080/allpositions", {
+        let response = await axios.get("https://zerodha-clone-backend-cyan.vercel.app/allpositions", {
           withCredentials: true,
           validateStatus: () => true,
         });

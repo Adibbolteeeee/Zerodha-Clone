@@ -16,7 +16,7 @@ function Login() {
     e.preventDefault();
     let { email, password } = formInput;
     try {
-      const URL = "http://localhost:8080/auth/login";
+      const URL = "https://zerodha-clone-backend-cyan.vercel.app/auth/login";
       let response = await axios.post(
         URL,
         { email, password },

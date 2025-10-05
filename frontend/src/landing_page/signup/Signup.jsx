@@ -25,7 +25,7 @@ function Signup() {
     }
 
     try {
-      const URL = "http://localhost:8080/auth/signup";
+      const URL = "https://zerodha-clone-backend-cyan.vercel.app/auth/signup";
 
       // 👇 Axios request with validateStatus so it never throws for non-2xx
       const response = await axios.post(

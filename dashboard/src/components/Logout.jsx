@@ -7,7 +7,7 @@ function Logout() {
     let navigate =useNavigate();
     useEffect(()=>{
         async function logout() {
-            let URL = "http://localhost:8080/logout";
+            let URL = "https://zerodha-clone-backend-cyan.vercel.app/logout";
             let response = await axios.get(URL,{withCredentials:true,validateStatus: ()=> true})
             let {data, status } = response;
             console.log(data);

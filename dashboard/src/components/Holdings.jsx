@@ -9,7 +9,7 @@ const Holdings = () => {
   useEffect(() => {
     async function fetchData() {
       try {
-        let response = await axios.get("http://localhost:8080/allholdings", {
+        let response = await axios.get("https://zerodha-clone-backend-cyan.vercel.app/allholdings", {
           withCredentials: true,
           validateStatus: () => true,
         });

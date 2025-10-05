@@ -13,7 +13,6 @@ import {
 
 import { watchlist } from "../data/data";
 import { DoughnutChart } from "./DoughnutChart";
-import { data } from "react-router-dom";
 
 const WatchList = () => {
   const labels = watchlist.map((item) => item.name)
