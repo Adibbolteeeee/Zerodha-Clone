@@ -20,19 +20,19 @@ function LeftSection({
           <h3 className="text-muted fs-4 mb-4">{title}</h3>
           <p className="product-description">{description}</p>
           <div className="mb-4">
-            <a href="/poducts" className="product-links">
+            <a href="/poduct" className="product-links">
               {tryDemo} <i className="fa-solid fa-arrow-right"></i>
             </a>
-             <a href="/products" className="product-links">
+             <a href="/product" className="product-links">
               {learnMore} <i className="fa-solid fa-arrow-right"></i>
             </a>
           </div>
 
           <div>
-            <a href="/products" >
+            <a href="/product" >
               <img src={googlePlay} alt="googleplay logo" className="product-image" />
             </a>
-            <a href="/products" >
+            <a href="/product" >
               <img src={appStore} alt="appstore logo" className="product-image"/>
             </a>
           </div>
