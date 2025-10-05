@@ -1,0 +1,158 @@
+/* Custom styling added from here */
+
+.body {
+  padding-top: 75px !important;
+}
+
+
+.nav-link {
+  margin-right: 2rem;
+}
+
+
+.about-links {
+  text-decoration: none;
+  color: #387ed1;
+}
+
+.about-links:hover {
+  color: #212529;
+}
+
+.about-p {
+  color: #424242;
+  line-height: 1.8;
+}
+
+
+.icons {
+  color: #847d7d;
+  font-size: 1.5rem;
+  margin-right: 0.5rem;
+}
+
+.footer-links {
+  text-decoration: none;
+  color: #847d7d;
+}
+
+.dark-links {
+  color : black;
+}
+
+.footer-links:hover {
+  color: rgb(98, 98, 255);
+}
+
+.footer-p {
+  margin-bottom: 1.5rem !important;
+  color: #847d7d;
+  font-size: .75rem;
+}
+.footer-p-links {
+  text-decoration: none;
+}
+
+.logo-text {
+  margin-bottom: 0;
+}
+
+.bottom-links {
+  text-decoration: none;
+  margin-right: 1.5rem;
+  color: #847d7d;
+  font-size: 0.75rem;
+}
+
+.founder-img {
+  border-radius: 100%;
+  width: 50%;
+}
+
+.product-links {
+  margin-right: 5rem;
+  text-decoration: none;
+  color :#387ed1;
+}
+
+.product-image { 
+  margin-right: 1rem;
+}
+.product-image:hover {
+  opacity: .8;
+}
+.product-description {
+  margin-right: 5rem;
+}
+
+.right-section-col {
+ place-self: center;
+}
+
+.left-section-col {
+  place-self: center;
+}
+
+.product-links:hover {
+  color: #212529;
+}
+
+.btn-primary:hover {
+  background-color:black;
+}
+
+.product-logo {
+  width: 13rem;
+  height: 4rem;
+  margin-bottom: 1rem;
+}
+
+.product-logo:hover {
+  opacity: 0.8;
+}
+
+.universe-p {
+  color: #847d7d;
+  font-size: 0.75rem;
+}
+.pricing-image {
+  width: 15rem;
+}
+.pricing-p {
+  font-size: 1.05rem;
+}
+.brokerage-li {
+  margin-bottom: 1rem;
+  font-size: 0.90rem;
+}
+.brokerage-title {
+  color: #387ed1;
+}
+.support-hero {
+  background-color:#387ed1;
+  color: white;
+}
+
+.support-a {
+  color: white;
+  margin-right: 1rem;
+  font-size: 0.85rem;
+}
+
+.ticket-a {
+  text-decoration: none;
+  margin-bottom: .75rem;
+  color: #387ed1;
+}
+
+.ticket-a:hover {
+  color: #212529;
+}
+
+.ticket-i {
+  margin-right: 1rem;
+}
+
+.signup-span {
+  margin-left: 2rem;
+}
