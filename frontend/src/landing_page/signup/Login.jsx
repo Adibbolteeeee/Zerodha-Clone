@@ -31,7 +31,7 @@ function Login() {
         handleError(data.error?.details[0]?.message);
       } else if (status === 200) {
         handleSuccess(`Welcome back! ${data.username}`);
-        setTimeout(()=>{window.location.href="http://localhost:5174/dashboard"},1500)
+        setTimeout(()=>{window.location.href="https://zerodha-clone-dashboard-gold.vercel.app/dashboard"},1500)
       } else if (status === 403) {
         handleError(data.message);
       } else if (status === 500) {
