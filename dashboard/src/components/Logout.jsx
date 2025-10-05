@@ -16,7 +16,7 @@ function Logout() {
             if(status === 200) {
                 handleSuccess(data.message);
                 setTimeout(()=> {
-                    window.location.href = "http://localhost:5173/";
+                    window.location.href = "https://zerodha-clone-rouge.vercel.app/";
                 },5000)
             }
             else if(status === 500) {

@@ -17,7 +17,7 @@ const Holdings = () => {
         if (status === 401) {
           handleError(data.message || "Unauthorized");
           setTimeout(() => {
-            window.location.href = "http://localhost:5173/login";
+            window.location.href = "https://zerodha-clone-rouge.vercel.app/login";
           }, 5000);
         } else if (status === 200) {
           handleSuccess(data.message);
